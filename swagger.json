@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Solid Introduction Documentation",
+        "description": "An api to create and list users",
+        "version": "1.0.0",
+        "contact": {
+            "email": "fernandobrino11@gmail.com"
+        }
+    },
+    "paths": {
+        "users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create a new user",
+                "description": "Create a new user, sending name and email by the request body and returning a User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Fernando Brino",
+                                    "email": "fernandobrino11@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created Successfully"
+                    },
+                    "400": {
+                        "description": "User with this email already exists"
+                    }
+                }
+            }
+        }
+    }
+}
