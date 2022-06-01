@@ -11,7 +11,7 @@
     "servers": [
         {
             "url": "http://localhost:3333",
-            "description": "Api test"
+            "description": "Test server"
         }
     ],
     "paths": {
@@ -78,7 +78,7 @@
                 "tags": ["User"],
                 "summary": "List all users",
                 "description": "List all users",
-                "parameters":[
+                "parameters": [
                     {
                         "user_id": "user_id",
                         "in": "headers",
@@ -88,7 +88,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Sucess",
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -111,6 +111,51 @@
                             "schema": {
                                 "example": {
                                     "error": "Apenas admin's podem listar usuários"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Show user by id",
+                "description": "Show a user by id",
+                "parameters": [
+                    {
+                        "user_id": "user_id",
+                        "in": "path",
+                        "description": "Busca pelo id do usuário",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                },
+                                "example": {
+                                    "id": "a7320e40-eab3-4a00-aad7-63f9876bec0b",
+                                    "admin": true,
+                                    "name": "Olivia Rodrigo",
+                                    "email": "olivia11@gmail.com",
+                                    "created_at": "2022-05-17T00:45:57.336Z",
+                                    "updated_at": "2022-05-17T00:46:05.997Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "schema": {
+                                "example": {
+                                    "error": "Usuário não encontrado"
                                 }
                             }
                         }
