@@ -8,12 +8,18 @@
             "email": "fernandobrino11@gmail.com"
         }
     },
+    "servers": [
+        {
+            "url": "http://localhost:3333",
+            "description": "Api test"
+        }
+    ],
     "paths": {
-        "users": {
+        "/users": {
             "post": {
                 "tags": ["User"],
                 "summary": "Create a new user",
-                "description": "Create a new user, sending name and email by the request body and returning a User",
+                "description": "This route will create a new user",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -37,10 +43,104 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created Successfully"
+                        "description": "Created Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                },
+                                "example": {
+                                    "id": "a7320e40-eab3-4a00-aad7-63f9876bec0b",
+                                    "admin": true,
+                                    "name": "Olivia Rodrigo",
+                                    "email": "olivia11@gmail.com",
+                                    "created_at": "2022-05-17T00:45:57.336Z",
+                                    "updated_at": "2022-05-17T00:46:05.997Z"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "User with this email already exists"
+                        "description": "User with this email already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "error": "Um usuário com esse email já existe"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "List all users",
+                "description": "List all users",
+                "parameters":[
+                    {
+                        "user_id": "user_id",
+                        "in": "headers",
+                        "description": "Id do usuário para listar todos usuários",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                },
+                                "example": {
+                                    "id": "a7320e40-eab3-4a00-aad7-63f9876bec0b",
+                                    "admin": true,
+                                    "name": "Olivia Rodrigo",
+                                    "email": "olivia11@gmail.com",
+                                    "created_at": "2022-05-17T00:45:57.336Z",
+                                    "updated_at": "2022-05-17T00:46:05.997Z"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Just admin's can list users",
+                        "content": {
+                            "schema": {
+                                "example": {
+                                    "error": "Apenas admin's podem listar usuários"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "admin": {
+                        "type": "boolean"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
                     }
                 }
             }
