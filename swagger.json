@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Solid Introduction Documentation",
-        "description": "An api to create and list users",
+        "description": "API to manage a users",
         "version": "1.0.0",
         "contact": {
             "email": "fernandobrino11@gmail.com"
